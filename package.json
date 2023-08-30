@@ -1,10 +1,13 @@
 {
   "name": "squid",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "index.ts",
   "license": "MIT",
+  "scripts": {
+    "dev": "yarn ts-node index.ts"
+  },
   "dependencies": {
-    "@0xsquid/sdk": "^1.8.0",
+    "@0xsquid/sdk": "1.12.0",
     "@types/node": "^18.11.18",
     "@types/typescript": "^2.0.0",
     "dotenv": "^16.3.1",
