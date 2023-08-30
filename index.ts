@@ -12,24 +12,24 @@ if (!privateKey)
     // instantiate the SDK
     //const baseUrl =
     //  "https://squid-api-git-feat-cosmos-maintestnet-0xsquid.vercel.app";
-    const baseUrl = "https://api.squidrouter.com";
+    const baseUrl = "http://localhost:3000";
     const squid = new Squid({
         baseUrl: baseUrl,
     });
     // init the SDK
     await squid.init();
     console.log("Squid inited");
-    const chainId = 43114;
+    const fromChainId = 43114;
+    const toChainId = 1284;
     const provider = ethers.getDefaultProvider(
-        squid.chains.find((c) => c.chainId === chainId)!.rpc
+        squid.chains.find((c) => c.chainId === fromChainId)!.rpc
     );
     const signer = new ethers.Wallet(privateKey, provider);
-    const toChainId = 250;
     const params = {
-        fromChain: chainId,
+        fromChain: fromChainId,
         fromToken: squid.tokens.find(
             (t) =>
-                t.symbol.toLocaleLowerCase() === "axlusdc" && t.chainId === chainId
+                t.symbol.toLocaleLowerCase() === "AVAX" && t.chainId === fromChainId
         )!.address,
         fromAmount: ethers.utils.parseUnits("0.5", "6").toString(),
         toChain: toChainId,
@@ -41,10 +41,10 @@ if (!privateKey)
         slippage: 3.0,
         enableForecall: false,
         quoteOnly: false,
-        collectFees: {
+        /* collectFees: {
             integratorAddress: "0xb13CD07B22BC5A69F8500a1Cb3A1b65618d50B22",
             fee: 90
-        }
+        } */
     };
 
     console.log("route params", params);
